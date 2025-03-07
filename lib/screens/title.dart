@@ -46,7 +46,7 @@ class Buttons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color color = Theme.of(context).primaryColor;
+    final Color color = Theme.of(context).splashColor;
 
     return SizedBox(
       child: Row(
