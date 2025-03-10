@@ -1,283 +1,109 @@
-// ignore_for_file: avoid_print
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:practice/screens/title.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+ 
+ void main(){
+   runApp(MyApp());
+ }
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Supabase.initialize(
-    url: 'https://uyjedkojbrwwguwrzmwb.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5amVka29qYnJ3d2d3d3J6bXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwNjUzNzIsImV4cCI6MjA1NTY0MTM3Mn0.5h9YNs1RlUJFuyaIEuWku8KIpSYUT6DBlVrfR8Go1ms',
-  );
-  runApp(const MyApp());
-}
-
-class TitleSection extends StatelessWidget {
-  final String name;
-  final String location;
-
-  const TitleSection({super.key, required this.name, required this.location});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          name,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          location,
-          style: const TextStyle(
-            color: Colors.grey,
-            fontSize: 16,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class ImageSection extends StatelessWidget {
-  final String image;
-
-  const ImageSection({super.key, required this.image});
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipOval(
-      child: Image.asset(image),
-    );
-  }
-}
-
-class Buttons extends StatelessWidget {
-  const Buttons({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        ElevatedButton(
-          onPressed: () {},
-          child: const Text('Button 1'),
-        ),
-        ElevatedButton(
-          onPressed: () {},
-          child: const Text('Button 2'),
-        ),
-      ],
-    );
-  }
-}
-
-class MyApp extends StatefulWidget {
+ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      debugShowMaterialGrid: false,
+      home: HomeWidget(),
+    );
+  }  
 }
 
-class _MyAppState extends State<MyApp> {
-  bool isDarkMode = false;
-
-  void toggleTheme(bool value) {
-    setState(() {
-      isDarkMode = value;
-    });
-  }
+class HomeWidget extends StatefulWidget {
+  const HomeWidget({super.key});
 
   @override
+  State<HomeWidget> createState() => _HomeWidgetState();
+}
+
+class _HomeWidgetState extends State<HomeWidget> {
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
-      home: HomePage(
-        isDarkMode: isDarkMode,
-        onThemeChanged: toggleTheme,
-      ),
+    return Scaffold(
+     appBar: AppBar(
+  title: Text('NS&D TECHNOLOGIES'),
+  elevation: 10,
+  backgroundColor: Colors.blue,
+  centerTitle: true,
+  actions: [
+    IconButton(
+      icon: Icon(Icons.menu),
+      onPressed: () {
+        // Add functionality here
+      },
+    ),
+  ],
+),
+
+      body: BodyWidget(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  final bool isDarkMode;
-  final Function(bool) onThemeChanged;
-
-  const HomePage({super.key, required this.isDarkMode, required this.onThemeChanged});
+class BodyWidget extends StatefulWidget {
+  const BodyWidget({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<BodyWidget> createState() => _BodyWidgetState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _BodyWidgetState extends State<BodyWidget> {
   @override
   Widget build(BuildContext context) {
-    final List<String> suggestions = [
-      "Flutter",
-      "Dart",
-      "Supabase",
-      "Firebase",
-      "React",
-      "Vue",
-      "Angular",
-      "Python"
-    ];
+    return SingleChildScrollView(
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+            Colors.blueAccent,
+            Colors.yellow
+          ])
+        ),
+        
+        
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Practice'),
-        centerTitle: true,
-        backgroundColor: Colors.blue,
-        elevation: 10.0,
-      ),
-      body: SingleChildScrollView(
         child: Container(
+          // margin: EdgeInsets.all(5),
           decoration: BoxDecoration(
-            gradient: widget.isDarkMode
-                ? null
-                : const LinearGradient(
-                    end: Alignment.bottomRight,
-                    begin: Alignment.topLeft,
-                    transform: GradientRotation(20 / 4),
-                    colors: [
-                      Color.fromARGB(255, 81, 173, 248),
-                      Color.fromARGB(255, 139, 242, 142),
-                      Color.fromARGB(255, 206, 113, 222),
-                      Color.fromARGB(255, 108, 214, 214),
-                      Color.fromARGB(255, 98, 97, 97),
-                    ],
-                  ),
-            color: widget.isDarkMode ? Colors.black : null,
+            borderRadius: BorderRadius.circular(8),
           ),
-          child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Autocomplete<String>(
-                    optionsBuilder: (TextEditingValue textEditingValue) {
-                      if (textEditingValue.text.isEmpty) {
-                        return const Iterable<String>.empty();
-                      }
-                      return suggestions.where((entry) =>
-                          entry.toLowerCase().contains(textEditingValue.text.toLowerCase()));
-                    },
-                    onSelected: (String selection) {
-                      print('Selected: $selection');
-                    },
-                    fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
-                      return TextField(
-                        controller: controller,
-                        focusNode: focusNode,
-                        decoration: InputDecoration(
-                          labelText: 'Search Technology',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      );
-                    },
+               
+                const SizedBox(height: 10,),
+
+                Container(
+                  margin: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8)
                   ),
-                ),
-                const SizedBox(height: 20.0),
-                Center(
-                  child: Container(
-                    margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: const TitleSection(
-                        name: 'Pearl Tech Solutions',
-                        location: 'Kireka Kampala Uganda',
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20.0),
-                ClipOval(
-                  child: Container(
-                    margin: const EdgeInsets.all(10),
-                    child: ImageSection(
-                      image: 'assets/pearl.jpeg',
-                    ),
-                  ),
+                  child: ImageSection(image: 'assets/pearl.jpeg'),
                 ),
                 Container(
-                  margin: const EdgeInsets.all(20),
-                  child: const Text(
-                    "DESCRIPTION: Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese Alps. Situated 1,578 meters above sea level, it is one of the larger Alpine Lakes. A gondola ride from Kandersteg, followed by a half-hour walk through pastures and pine forest, leads you to the lake, which warms to 20 degrees Celsius in the summer. Activities enjoyed here include rowing, and riding the summer toboggan run.",
-                    softWrap: true,
-                  ),
+                  decoration: BoxDecoration(),
+                  child: TextSection(text: "At NS&D Technologies, we are passionate about building innovative software solutions that drive businesses forward. Our team of skilled developers, designers, and engineers specialize in creating cutting-edge applications tailored to meet the evolving needs of our clients.With expertise in mobile and web development, cloud computing, AI, and cybersecurity, we deliver robust and scalable solutions that empower organizations to stay ahead in the digital landscape. Whether you're a startup looking to build your first app or an enterprise in need of custom software, NS&D Technologies is committed to providing excellence at every stage.Our mission is simple: to transform ideas into reality through technology, efficiency, and creativity. Partner with us today and experience the future of software development"),
+               ),
+               const SizedBox(height: 10,),
+                Container(
+                  margin: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(),
+                  child: Buttons(),
                 ),
-                Center(
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 20),
-                    margin: const EdgeInsets.only(left: 10, right: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
-                      gradient: const LinearGradient(
-                        colors: [
-                          Colors.amber,
-                          Colors.amberAccent,
-                          Colors.blue,
-                          Colors.blueGrey,
-                        ],
-                      ),
-                    ),
-                    child: const Buttons(),
-                  ),
-                ),
-                const SizedBox(height: 20.0),
-                RatingBar.builder(
-                  minRating: 1,
-                  maxRating: 5,
-                  allowHalfRating: true,
-                  initialRating: 3.0,
-                  itemBuilder: (context, _) => const Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  onRatingUpdate: (rating) {
-                    print('Rating: $rating');
-                  },
-                ),
-                const SizedBox(height: 20.0),
-                const Text('Rate our app on the play store'),
-                const SizedBox(height: 20.0),
-                CupertinoSwitch(
-                  value: widget.isDarkMode,
-                  onChanged: widget.onThemeChanged,
-                  activeTrackColor: CupertinoColors.activeBlue,
-                  inactiveTrackColor: CupertinoColors.systemGrey,
-                  thumbColor: CupertinoColors.systemIndigo,
-                  inactiveThumbColor: CupertinoColors.systemPink,
-                ),
-                Text(
-                  widget.isDarkMode ? 'Dark Mode' : 'Light Mode',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: widget.isDarkMode ? Colors.white : Colors.black,
-                  ),
-                ),
+                Container(
+                  decoration: BoxDecoration(),
+                  child: Rate(),
+                )
               ],
             ),
-          ),
         ),
       ),
     );
