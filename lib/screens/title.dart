@@ -82,15 +82,6 @@ class ButtonWithText extends StatelessWidget {
   }
 }
 
-class ImageSection extends StatelessWidget {
-  const ImageSection({super.key, required this.image});
-  final String image;
-  @override
-  Widget build(BuildContext context) {
-    return Image.asset(image, width: 600, height: 250, fit: BoxFit.cover,);
-  }
-}
-
 class TextSection extends StatelessWidget {
   const TextSection({super.key, required this.text});
  final String text;
@@ -128,3 +119,49 @@ class Rate extends StatelessWidget {
     );
   }
 }
+
+class AutoCompleteExample extends StatelessWidget {
+  const AutoCompleteExample({super.key});
+
+  static const List<String> _options = <String>[
+    'Flutter',
+    'Dart',
+    'Firebase',
+    'Supabase',
+    'Kotlin',
+    'Swift',
+    'JavaScript',
+    'Python'
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Autocomplete<String>(
+      optionsBuilder: (TextEditingValue textEditingValue) {
+        if (textEditingValue.text.isEmpty) {
+          return const Iterable<String>.empty();
+        }
+        return _options.where((String option) {
+          return option.toLowerCase().contains(textEditingValue.text.toLowerCase());
+        });
+      },
+      onSelected: (String selection) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('You selected: $selection')),
+        );
+      },
+      fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
+        return TextField(
+          controller: controller,
+          focusNode: focusNode,
+          decoration: InputDecoration(
+            labelText: 'Search',
+            border: OutlineInputBorder(),
+            suffixIcon: Icon(Icons.search),
+          ),
+        );
+      },
+    );
+  }
+}
+

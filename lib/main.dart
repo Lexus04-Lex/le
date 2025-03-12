@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practice/screens/parallax.dart';
 import 'package:practice/screens/title.dart';
  
  void main(){
@@ -68,8 +69,6 @@ class _BodyWidgetState extends State<BodyWidget> {
           ])
         ),
         
-        
-
         child: Container(
           // margin: EdgeInsets.all(5),
           decoration: BoxDecoration(
@@ -77,20 +76,33 @@ class _BodyWidgetState extends State<BodyWidget> {
           ),
             child: Column(
               children: [
-               
-                const SizedBox(height: 10,),
-
                 Container(
-                  margin: EdgeInsets.all(10),
+                  margin: EdgeInsets.all(25),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8)
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  child: ImageSection(image: 'assets/pearl.jpeg'),
-                ),
+                  child: AutoCompleteExample(),
+                ), 
+
+                const SizedBox(height: 10,),
                 Container(
                   decoration: BoxDecoration(),
                   child: TextSection(text: "At NS&D Technologies, we are passionate about building innovative software solutions that drive businesses forward. Our team of skilled developers, designers, and engineers specialize in creating cutting-edge applications tailored to meet the evolving needs of our clients.With expertise in mobile and web development, cloud computing, AI, and cybersecurity, we deliver robust and scalable solutions that empower organizations to stay ahead in the digital landscape. Whether you're a startup looking to build your first app or an enterprise in need of custom software, NS&D Technologies is committed to providing excellence at every stage.Our mission is simple: to transform ideas into reality through technology, efficiency, and creativity. Partner with us today and experience the future of software development"),
                ),
+
+               const SizedBox(height: 10,),
+
+                       Column(
+                         children: [
+                           Container(
+                                                    
+                            decoration: BoxDecoration(),
+                            child: ParallaxExample(),
+                           ),
+                         ],
+                       ),
+              
                const SizedBox(height: 10,),
                 Container(
                   margin: EdgeInsets.all(5),
