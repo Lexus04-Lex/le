@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:practice/screens/favorite.dart';
 import 'package:practice/screens/parallax.dart'; // Ensure this file exists
-import 'package:practice/screens/title.dart'; // Ensure this file exists
+import 'package:practice/screens/requests.dart';
+import 'package:practice/screens/title.dart';
+import 'package:practice/screens/video.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,6 +47,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         ],
       ),
       body: const BodyWidget(),
+      
     );
   }
 }
@@ -83,6 +87,25 @@ class BodyWidget extends StatelessWidget {
               height: 200, // Ensures horizontal scrolling visibility
               child: ParallaxExample(),
             ),
+
+            Container(
+              decoration: BoxDecoration(),
+              child: Internet(),
+            ),
+
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                margin: EdgeInsets.all(20),
+                decoration: BoxDecoration(),
+              child: const VideoPlayerScreen(),
+              ),
+            ),
+            const SizedBox(height: 10,),
+            Container(
+              decoration: BoxDecoration(),
+              child: Lexus(),
+            ),
             const SizedBox(height: 10),
             Container(
               margin: const EdgeInsets.all(5),
@@ -90,9 +113,11 @@ class BodyWidget extends StatelessWidget {
               child: const Buttons(), // Ensure this widget exists
             ),
             const SizedBox(height: 10),
-            const Rate(), // Ensure this widget exists
+            const Rate(), 
+            const SizedBox(height: 10),// Ensure this widget exists
+            
           ],
-        ),
+          ),
       ),
     );
   }
